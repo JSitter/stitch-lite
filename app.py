@@ -18,7 +18,7 @@ class Product(Base):
   sku = Column('sku', String, unique=True)
   qty = Column('qty', Integer, nullable=False)
 
-engine = create_engine('sqlite:///:memory:', echo=True)
+engine = create_engine(os.environ.get('CLEARDB_DATABASE_URL'), echo=True)
 Base.metadata.create_all(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -45,13 +45,15 @@ def vendAuth():
 @app.route('/')
 def main():
   api_key = os.environ.get('SHOPIFY_API_KEY')
-  url = "https://stitch-labs.herokuapp.vendhq.com/api/products?page=1&page_size=200"
+  url = "https://stitch-lite.herokuapp.vendhq.com/api/products?page=1&page_size=200"
 
   urli = "http://www.reddit.com"
 
-  headers = {'Authorization': 'Bearer 5OtjwgBqfIMt7vavCz66g_WtoCCB0hZ3t1lEFLVK'}
+  headers = {
+    'Authorization': 'Bearer 5OtjwgBqfIMt7vavCz66g_WtoCCB0hZ3t1lEFLVK'
+  }
 
-  response = requests.get(url, headers=headers)
+  response = requests.get(url, headers=headers, )
 
   data = response.text
   print(data)
