@@ -28,6 +28,7 @@ product.description = "These are wonderful earrings with high quality metals"
 product.sku = '10003003'
 product.qty = 1000
 
+
 session.add(product)
 session.commit()
 session.close()
@@ -45,9 +46,9 @@ def vendAuth():
 @app.route('/')
 def main():
   api_key = os.environ.get('SHOPIFY_API_KEY')
-  url = "https://stitch-lite.herokuapp.vendhq.com/api/products?page=1&page_size=200"
+  urli = "https://stitch-lite.herokuapp.vendhq.com/api/products?page=1&page_size=200"
 
-  urli = "http://www.reddit.com"
+  url = "http://www.reddit.com"
 
   headers = {
     'Authorization': 'Bearer 5OtjwgBqfIMt7vavCz66g_WtoCCB0hZ3t1lEFLVK'
