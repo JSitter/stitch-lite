@@ -36,15 +36,33 @@ session.close()
 app = Flask(__name__)
 
 def vendAuth():
-  redirect_uri = ''
+  redirect_uri = 'https://reddit.com'
   client_id = 12345
   state = ''
 
-  authUrl = 'https://secure.vendhq.com/connect?response_type=code&client_id={client_id}&redirect_uri={redirect_uri}&state={state}'.format(redirect_uri, client_id, state)
+  authUrl = 'https://secure.vendhq.com/connect?response_type=code&client_id={}&redirect_uri={}&state={}'.format(redirect_uri, client_id, state)
   print(authUrl)
+
+def shopifyAuth():
+  api_key = os.environment.get('SHOPIFY_API_KEY')
+  url = 'https://18d39847f5ac7a00f0c780a984e8716b:1c3a85695246e7824f383f3bf897d5dc@stitch-lightning.myshopify.com/admin/orders.json'
+
+  headers = {
+  'Authorization': 'Bearer 5OtjwgBqfIMt7vavCz66g_WtoCCB0hZ3t1lEFLVK',
+  'Username':'18d39847f5ac7a00f0c780a984e8716b',
+  'Password': '1c3a85695246e7824f383f3bf897d5dc'
+  }
+
+  response = requests.get(url, headers=headers, )
+
+  data = response.text
+  print(data)
+
+  return data
 
 @app.route('/')
 def main():
+  vendAuth()
   api_key = os.environ.get('SHOPIFY_API_KEY')
   urli = "https://stitch-lite.herokuapp.vendhq.com/api/products?page=1&page_size=200"
 
