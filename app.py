@@ -40,7 +40,7 @@ def main():
   api_key = os.environ.get('SHOPIFY_API_KEY')
   url = "https://stitch-lite.herokuapp.vendhq.com/api/2.0/inventory"
 
-  headers = {'accept': 'application/json'}
+  headers = {'Authorization: Bearer': '5OtjwgBqfIMt7vavCz66g_WtoCCB0hZ3t1lEFLVK'}
 
   response = requests.get(url, headers=headers)
 
