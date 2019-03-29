@@ -3,7 +3,9 @@ from sqlalchemy import create_engine, Column, Integer, String, Unicode
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
+import requests
 import os
+import json
 
 Base = declarative_base()
 
@@ -35,7 +37,17 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
-  return os.environ.get('SHOPIFY_API_KEY')
+  api_key = os.environ.get('SHOPIFY_API_KEY')
+  url = "https://stitch-lite.herokuapp.com.vendhq.com/api/2.0/inventory"
+
+  headers = {'accept': 'application/json'}
+
+  response = requests.get(url, header)
+
+  data = response.text
+  print(data)
+
+  return data
 
 @app.route('/api/sync', methods=['POST'])
 def sync():
