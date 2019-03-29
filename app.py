@@ -86,7 +86,8 @@ def vendReturn():
 
 @app.route('/api/sync', methods=['POST'])
 def sync():
-  return os.environ.get('SHOPIFY_API_KEY')
+  shopify_api = os.environ.get('SHOPIFY_API_KEY')
+  return 'help'
 
 if __name__ == '__main__':
   app.run()
