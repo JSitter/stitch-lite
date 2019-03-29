@@ -22,7 +22,6 @@ engine = create_engine('sqlite:///:memory:', echo=True)
 Base.metadata.create_all(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()
-print('hello')
 product = Product()
 product.product_name = "Earringsa"
 product.description = "These are wonderful earrings with high quality metals"
@@ -35,12 +34,22 @@ session.close()
 
 app = Flask(__name__)
 
+def vendAuth():
+  redirect_uri = ''
+  client_id = 12345
+  state = ''
+
+  authUrl = 'https://secure.vendhq.com/connect?response_type=code&client_id={client_id}&redirect_uri={redirect_uri}&state={state}'.format(redirect_uri, client_id, state)
+  print(authUrl)
+
 @app.route('/')
 def main():
   api_key = os.environ.get('SHOPIFY_API_KEY')
-  url = "https://vendhq.com/api/2.0/inventory"
+  url = "https://stitch-labs.herokuapp.vendhq.com/api/products?page=1&page_size=200"
 
-  headers = {'Authorization: Bearer': '5OtjwgBqfIMt7vavCz66g_WtoCCB0hZ3t1lEFLVK'}
+  urli = "http://www.reddit.com"
+
+  headers = {'Authorization': 'Bearer 5OtjwgBqfIMt7vavCz66g_WtoCCB0hZ3t1lEFLVK'}
 
   response = requests.get(url, headers=headers)
 
@@ -48,6 +57,11 @@ def main():
   print(data)
 
   return data
+
+# https://domain_prefix.vendhq.com/api/products?page=23&page_size=200
+@app.route('/api/products')
+def vendReturn():
+  return 'Hello There!'
 
 @app.route('/api/sync', methods=['POST'])
 def sync():
