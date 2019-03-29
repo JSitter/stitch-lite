@@ -42,7 +42,7 @@ def main():
 
   headers = {'accept': 'application/json'}
 
-  response = requests.get(url, header=headers)
+  response = requests.get(url, headers=headers)
 
   data = response.text
   print(data)
